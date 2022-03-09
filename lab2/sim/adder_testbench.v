@@ -1,12 +1,13 @@
 `timescale 1ns/1ns
+`include "adder.vh"
 
 `define SECOND 1000000000
 `define MS 1000000
 
 module adder_testbench();
-    reg [13:0] a;
-    reg [13:0] b;
-    wire [14:0] sum;
+    reg [`ADDER_BIT_WIDTH-1:0] a;
+    reg [`ADDER_BIT_WIDTH-1:0] b;
+    wire [`ADDER_BIT_WIDTH:0] sum;
 
     structural_adder sa (
         .a(a),
@@ -14,6 +15,7 @@ module adder_testbench();
         .sum(sum)
     );
 
+    integer ai, bi;
     initial begin
         `ifdef IVERILOG
             $dumpfile("adder_testbench.fst");
@@ -23,15 +25,27 @@ module adder_testbench();
             $vcdpluson;
         `endif
 
+        // for (ai = 0; ai <=10024; ai = ai+1) begin
+        //     for (bi = 0; bi <=10024; bi = bi+1) begin
+        //         a = ai;
+        //         b = bi;
+        //         #(2);
+        //     end
+        // end
+
+        a = $urandom();
+        b = $urandom();
+        #(2);
+
         a = 14'd1;
         b = 14'd1;
         #(2);
-        assert(sum == 15'd2);
+        if (sum != 15'd2) $display("ERROR: Expected sum to be 2, actual value: %d", sum);
 
         a = 14'd0;
         b = 14'd1;
         #(2);
-        assert(sum == 15'd1) else $display("ERROR: Expected sum to be 1, actual value: %d", sum);
+        if(sum != 15'd1) $display("ERROR: Expected sum to be 1, actual value: %d", sum);
 
         a = 14'd10;
         b = 14'd10;

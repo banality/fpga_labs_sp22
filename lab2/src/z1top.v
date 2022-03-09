@@ -1,5 +1,7 @@
 // Comment out this line when you want to instantiate your counter
-`define ADDER_CIRCUIT
+// `define ADDER_CIRCUIT
+
+`include "adder.vh"
 
 module z1top (
     input CLK_125MHZ_FPGA,
@@ -8,18 +10,19 @@ module z1top (
     output [5:0] LEDS
 );
 
+// codes for adder circuit
 `ifdef ADDER_CIRCUIT
-    wire [14:0] adder_out;
-    structural_adder user_adder (
-        .a({11'b0,SWITCHES[0],BUTTONS[1:0]}),
-        .b({11'b0,SWITCHES[1],BUTTONS[3:2]}),
+    wire [`ADDER_BIT_WIDTH:0] adder_out;
+    structural_adder #(.ADDER_BIT_WIDTH(32)) user_adder (
+        .a({1'b0,SWITCHES[0],BUTTONS[1:0]}),
+        .b({1'b0,SWITCHES[1],BUTTONS[3:2]}),
         .sum(adder_out)
     );
     assign LEDS[3:0] = adder_out[3:0]; // truncate upper bits
 
     // Self test of the structural adder
-    wire [13:0] adder_operand1, adder_operand2;
-    wire [14:0] structural_out, behavioral_out;
+    wire [`ADDER_BIT_WIDTH-1:0] adder_operand1, adder_operand2;
+    wire [`ADDER_BIT_WIDTH:0] structural_out, behavioral_out;
     wire test_fail;
     assign LEDS[4] = ~test_fail;
     assign LEDS[5] = ~test_fail;
@@ -45,6 +48,7 @@ module z1top (
         .test_fail(test_fail)
     );
 `else
+    // codes for counter circuit.
     assign LEDS[5:4] = 0;
 
     counter ctr (

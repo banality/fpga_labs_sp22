@@ -1,0 +1,9 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/full_adder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module full_adder
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/structural_adder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module structural_adder
+WARNING: [VRFC 10-3380] identifier 'ADDER_BIT_WIDTH' is used before its declaration [/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/structural_adder.v:5]
+WARNING: [VRFC 10-3380] identifier 'ADDER_BIT_WIDTH' is used before its declaration [/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/structural_adder.v:6]
+WARNING: [VRFC 10-3380] identifier 'ADDER_BIT_WIDTH' is used before its declaration [/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/structural_adder.v:7]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/sim/adder_testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module adder_testbench

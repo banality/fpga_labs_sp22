@@ -1,0 +1,10 @@
+0.6
+2019.2
+Nov  6 2019
+21:42:20
+/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/Vivado_projects/Structural_adder_project/Structural_adder_project.sim/sim_1/behav/xsim/glbl.v,1573089660,verilog,,,,glbl,,,,,,,,
+/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/sim/adder_testbench.v,1645883571,verilog,,,/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/inc/adder.vh,adder_testbench,,,,,,,,
+/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/behavioral_adder.v,1645497690,verilog,,/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/sim/adder_testbench.v,,behavioral_adder,,,,,,,,
+/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/full_adder.v,1646568328,verilog,,/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/structural_adder.v,,full_adder,,,../../../../../../src/inc,,,,,
+/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/inc/adder.vh,1646568303,verilog,,,,,,,,,,,,
+/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/src/structural_adder.v,1645882164,verilog,,/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/sim/adder_testbench.v,,structural_adder,,,,,,,,

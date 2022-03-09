@@ -1,17 +1,19 @@
+`include "adder.vh"
+
 module adder_tester (
-    output [13:0] adder_operand1,
-    output [13:0] adder_operand2,
-    input [14:0] structural_sum,
-    input [14:0] behavioral_sum,
+    output [`ADDER_BIT_WIDTH-1:0] adder_operand1,
+    output [`ADDER_BIT_WIDTH-1:0] adder_operand2,
+    input [`ADDER_BIT_WIDTH:0] structural_sum,
+    input [`ADDER_BIT_WIDTH:0] behavioral_sum,
     input clk,
     output test_fail
 );
     reg error = 0;
     assign test_fail = error;
 
-    reg [27:0] operands = 0;
-    assign adder_operand1 = operands[13:0];
-    assign adder_operand2 = operands[27:14];
+    reg [`ADDER_BIT_WIDTH*2 - 1:0] operands = 0;
+    assign adder_operand1 = operands[`ADDER_BIT_WIDTH-1:0];
+    assign adder_operand2 = operands[`ADDER_BIT_WIDTH*2 - 1:`ADDER_BIT_WIDTH];
 
     // Iterate the operands continuously until all combinations are tried
     always @ (posedge clk) begin

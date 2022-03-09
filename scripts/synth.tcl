@@ -1,5 +1,6 @@
 source ../target.tcl
 
+# You can refactor to add INC var for header file
 # Read Verilog source files
 if {[string trim ${RTL}] ne ""} {
   read_verilog -v ${RTL}

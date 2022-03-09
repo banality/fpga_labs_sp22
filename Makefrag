@@ -4,7 +4,13 @@ SCRIPTS                 := $(ABS_TOP)/../scripts
 VIVADO                  ?= vivado
 VIVADO_OPTS             ?= -nolog -nojournal -mode batch
 FPGA_PART               ?= xc7z020clg400-1
+
+# If you want to refactor, you can add INC variable for include header file and the .tcl files in Script dir also need to be refactored.
+# RTL header file in $(ABS_TOP)/src
+RTL                     += $(subst /cygdrive/c/,C:/, $(shell find $(ABS_TOP)/src/inc -type f -name "*.vh"))
+# RTL source file in $(ABS_TOP)/src
 RTL                     += $(subst /cygdrive/c/,C:/, $(shell find $(ABS_TOP)/src -type f -name "*.v"))
+
 CONSTRAINTS             += $(subst /cygdrive/c/,C:/, $(shell find $(ABS_TOP)/src -type f -name "*.xdc"))
 TOP                     ?= z1top
 VCS                     := vcs -full64
@@ -21,7 +27,7 @@ sim/%.vpd: sim/%.tb
 	cd sim && ./$*.tb +verbose=1 +vpdfile+$*.vpd
 
 sim/%.tbi: sim/%.v $(RTL)
-	cd sim && $(IVERILOG) $(IVERILOG_OPTS) -o $*.tbi $*.v $(RTL)
+	cd sim && $(IVERILOG) $(IVERILOG_OPTS) -I $(ABS_TOP)/src/inc -o $*.tbi $*.v $(RTL)
 
 sim/%.fst: sim/%.tbi
 	cd sim && $(VVP) $*.tbi -fst
@@ -70,7 +76,7 @@ vivado: build
 	cd build && nohup $(VIVADO) </dev/null >/dev/null 2>&1 &
 
 lint:
-	verilator --lint-only --top-module $(TOP) $(RTL)
+	verilator --lint-only  --top-module $(TOP) $(RTL) -y$(ABS_TOP)/src/inc
 
 sim_build/compile_simlib/synopsys_sim.setup:
 	mkdir -p sim_build/compile_simlib

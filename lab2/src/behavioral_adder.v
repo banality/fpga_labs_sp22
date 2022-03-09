@@ -1,7 +1,10 @@
+`include "adder.vh"
+
 module behavioral_adder (
-    input [13:0] a,
-    input [13:0] b,
-    output [14:0] sum
+    input [`ADDER_BIT_WIDTH-1:0] a,
+    input [`ADDER_BIT_WIDTH-1:0] b,
+    output [`ADDER_BIT_WIDTH:0] sum
 );
+    
     assign sum = a + b;
 endmodule

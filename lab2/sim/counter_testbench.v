@@ -29,7 +29,22 @@ module counter_testbench();
 
         // TODO: Change input values and step forward in time to test
         // your counter and its clock enable/disable functionality.
+        ce = 0;
+        #(400);
+        ce = 1;
+        #(400);
+        ce = 0;
+        #(400);
+        ce = 1;
+        // The simulation time is too long for one second
+        #(`SECOND);
+        if(LEDS != 4'd1) 
+            $display("ERROR: Expected sum to be 1, actual value: %d", sum);
+        ce = 0;
+        #(2*`MS);
+        ce = 1;
 
+        #(`SECOND);
 
         `ifndef IVERILOG
             $vcdplusoff;

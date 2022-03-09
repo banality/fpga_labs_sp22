@@ -1,0 +1,8 @@
+Vivado Simulator 2019.2
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: /opt/Xilinx/Vivado/2019.2/bin/unwrapped/lnx64.o/xelab -wto 506146dd8ebb4ce7aea5e3f01b68df42 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot adder_testbench_behav xil_defaultlib.adder_testbench xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+ERROR: [XSIM 43-4287] "/home/banality/Study_things/Courses_EECS/fpga_labs_sp22_eecs151-251A/lab2/sim/adder_testbench.v" Line 59. Undefined system task '$vcdplusoff'

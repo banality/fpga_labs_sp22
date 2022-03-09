@@ -1,0 +1,1 @@
+`define ADDER_BIT_WIDTH 32
