@@ -2,7 +2,7 @@
 
 `define CLK_PERIOD 8
 `define DEBOUNCER_WIDTH 2
-`define SAMPLE_CNT_MAX 10
+`define SAMPLE_GENERATOR_CNT_MAX 10
 `define PULSE_CNT_MAX 4
 
 // This testbench checks that your debouncer smooths-out the input signals properly. Refer to the spec for details.
@@ -17,8 +17,8 @@ module debouncer_tb();
     wire [`DEBOUNCER_WIDTH-1:0] debounced_signal;
 
     debouncer #(
-        .WIDTH(`DEBOUNCER_WIDTH),
-        .SAMPLE_CNT_MAX(`SAMPLE_CNT_MAX),
+        .SIGNAL_WIDTH(`DEBOUNCER_WIDTH),
+        .SAMPLE_GENERATOR_CNT_MAX(`SAMPLE_GENERATOR_CNT_MAX),
         .PULSE_CNT_MAX(`PULSE_CNT_MAX)
     ) DUT (
         .clk(clk),
@@ -56,19 +56,19 @@ module debouncer_tb();
 
         // Drop signal for a full sample period
         glitchy_signal[0] = 0;
-        repeat(`SAMPLE_CNT_MAX + 1) @(posedge clk);
+        repeat(`SAMPLE_GENERATOR_CNT_MAX + 1) @(posedge clk);
         #1;
 
         // Bring the signal high and hold until before the saturating counter should saturate, then pull low
         glitchy_signal[0] = 1;
-        repeat (`SAMPLE_CNT_MAX * (`PULSE_CNT_MAX - 1)) @(posedge clk);
+        repeat (`SAMPLE_GENERATOR_CNT_MAX * (`PULSE_CNT_MAX - 1)) @(posedge clk);
         #1;
 
         // Pull the signal low and wait, the debouncer shouldn't set its output high
         glitchy_signal[0] = 0;
-        repeat (`SAMPLE_CNT_MAX * (`PULSE_CNT_MAX + 1)) @(posedge clk);
+        repeat (`SAMPLE_GENERATOR_CNT_MAX * (`PULSE_CNT_MAX + 1)) @(posedge clk);
         #1;
-        assert(debounced_signal[0] == 0) else $display("1st debounced_signal didn't stay low");
+        if (debounced_signal[0] != 0) $display("1st debounced_signal didn't stay low");
 
         test0_done = 1;
 
@@ -82,7 +82,7 @@ module debouncer_tb();
 
         // Bring the glitchy signal high and hold past the point at which the debouncer should saturate
         glitchy_signal[1] = 1;
-        repeat (`SAMPLE_CNT_MAX * (`PULSE_CNT_MAX + 1)) @(posedge clk);
+        repeat (`SAMPLE_GENERATOR_CNT_MAX * (`PULSE_CNT_MAX + 1)) @(posedge clk);
         #1;
 
         if (debounced_signal[1] != 1)
@@ -90,7 +90,7 @@ module debouncer_tb();
         @(posedge clk); #1;
 
         // While the glitchy signal is high, the debounced output should remain high
-        repeat (`SAMPLE_CNT_MAX * 3) begin
+        repeat (`SAMPLE_GENERATOR_CNT_MAX * 3) begin
             if (debounced_signal[1] != 1)
                 $error("Failure 2: The debounced output[1] should stay high once the counter saturates at %d", $time);
             @(posedge clk); #1;
@@ -100,14 +100,14 @@ module debouncer_tb();
         // The output is only guaranteed to fall after the next sampling period
         // Wait until another sampling period has definetely occured
         glitchy_signal[1] = 0;
-        repeat (`SAMPLE_CNT_MAX + 1) @(posedge clk); #1;
+        repeat (`SAMPLE_GENERATOR_CNT_MAX + 1) @(posedge clk); #1;
 
         if (debounced_signal[1] != 0)
             $error("Failure 3: The debounced output[1] should have falled by now %d", $time);
         @(posedge clk); #1;
 
         // Wait for some time to ensure the signal stays low
-        repeat (`SAMPLE_CNT_MAX * (`PULSE_CNT_MAX + 1)) begin
+        repeat (`SAMPLE_GENERATOR_CNT_MAX * (`PULSE_CNT_MAX + 1)) begin
             if (debounced_signal[1] != 0)
                 $error("Failure 4: The debounced output[1] should remain low at %d", $time);
             @(posedge clk); #1;
@@ -126,7 +126,7 @@ module debouncer_tb();
     initial begin
         while (test0_done == 0) begin
             if (debounced_signal[0] != 0)
-                $error("Failure 0: The debounced output[0] wasn't 0 for the entire test.");
+                $error("Failure 0: The debounced output[0] wasn't 0 for the zero test.");
             @(posedge clk);
         end
     end

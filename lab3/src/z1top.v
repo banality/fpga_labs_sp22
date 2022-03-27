@@ -12,14 +12,14 @@ module z1top (
 
     // Button parser test circuit
     // Sample the button signal every 500us
-    localparam integer B_SAMPLE_CNT_MAX = $rtoi(0.0005 * `CLOCK_FREQ);
-    // The button is considered 'pressed' after 100ms of continuous pressing
-    localparam integer B_PULSE_CNT_MAX = $rtoi(0.100 / 0.0005);
+    localparam integer B_SAMPLE_GENERATOR_CNT_MAX = $rtoi(0.0005 * `CLOCK_FREQ);
+    // After my in person button-pressing test, I found that the quick pressing time can be less than 100ms. So the button is considered 'pressed' after 50ms of continuous pressing
+    localparam integer B_PULSE_CNT_MAX = $rtoi(0.050 / 0.0005);
 
     wire [3:0] buttons_pressed;
     button_parser #(
-        .WIDTH(4),
-        .SAMPLE_CNT_MAX(B_SAMPLE_CNT_MAX),
+        .SIGNAL_WIDTH(4),
+        .SAMPLE_GENERATOR_CNT_MAX(B_SAMPLE_GENERATOR_CNT_MAX),
         .PULSE_CNT_MAX(B_PULSE_CNT_MAX)
     ) bp (
         .clk(CLK_125MHZ_FPGA),

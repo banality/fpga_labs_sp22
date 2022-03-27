@@ -13,7 +13,7 @@ module edge_detector_tb();
     wire [`EDGE_DETECTOR_WIDTH-1:0] edge_detect_pulse;
 
     edge_detector #(
-        .WIDTH(`EDGE_DETECTOR_WIDTH)
+        .SIGNAL_WIDTH(`EDGE_DETECTOR_WIDTH)
     ) DUT (
         .clk(clk),
         .signal_in(signal_in),
