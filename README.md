@@ -1,4 +1,4 @@
-# EECS151/251A FPGA Labs SP22
+# EECS151/251A FPGA Labs SP22 自学记录（Study Notes）
 
 For each lab, please find the instructions at **/lab#/spec/spec.md**
 
@@ -16,7 +16,7 @@ Lab 6: Due after spring break
 
 # Link to the Final Project for FPGA
 
-* Link not available yet
+https://github.com/EECS150/project_skeleton_sp22/
 
 # Course Website
 
